@@ -23,6 +23,9 @@ public class NewMain {
  Stock stock = YahooFinance.get("INTC");
         BigDecimal price = stock.getQuote(true).getPrice();
         System.out.println(price);
+        BigDecimal peg = stock.getStats().getPeg();
+        System.out.println(peg);
+        stock.getQuote().getVolume();
     }
     
 }
