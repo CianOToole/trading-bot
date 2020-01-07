@@ -47,7 +47,7 @@ public class PriceAndTime implements Runnable {
                 calNewYork.get(Calendar.HOUR_OF_DAY);
                 closeTime.set(Calendar.HOUR_OF_DAY, 16);
                 
-                if(calNewYork.get(Calendar.HOUR_OF_DAY) == closeTime.get(Calendar.HOUR_OF_DAY)){
+                if(calNewYork.get(Calendar.HOUR_OF_DAY) >= closeTime.get(Calendar.HOUR_OF_DAY)){
                     return;
                 }
                 
