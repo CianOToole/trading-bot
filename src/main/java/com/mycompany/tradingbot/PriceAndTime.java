@@ -36,11 +36,8 @@ public class PriceAndTime implements Runnable {
                 System.out.println(price);
                 
                 Calendar closeTime = Calendar.getInstance();
-        closeTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+                closeTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
         
-      
-        
-                
                 Calendar calNewYork = Calendar.getInstance();
                 calNewYork.setTimeZone(TimeZone.getTimeZone("America/New_York"));
      

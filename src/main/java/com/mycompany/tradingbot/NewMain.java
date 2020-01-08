@@ -35,7 +35,7 @@ public class NewMain {
 //        List<HistoricalQuote> googleHistQuotes = google.getHistory(from, to, Interval.WEEKLY);
 //        System.out.println(googleHistQuotes);
 
-        PriceAndTime i = new PriceAndTime();
+        StopPriceAndTime i = new StopPriceAndTime();
 
         Calendar calNewYork = Calendar.getInstance();
         calNewYork.setTimeZone(TimeZone.getTimeZone("America/New_York"));
@@ -53,8 +53,8 @@ public class NewMain {
         closeTime.get(Calendar.HOUR_OF_DAY);
         
         System.out.println(closeTime);
-//        Thread t1 = new Thread(i);
-//        t1.start();
+        Thread t1 = new Thread(i);
+        t1.start();
         
         
     }

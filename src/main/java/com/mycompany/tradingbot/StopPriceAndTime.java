@@ -19,43 +19,27 @@ import yahoofinance.YahooFinance;
  * @author N00180562
  */
 public class StopPriceAndTime implements Runnable {
-    
+
     @Override
     public void run() {
         for (;;) {
-
-            try {
-                Thread.sleep(6000);
-            } catch (InterruptedException e) {
-                return;
-            }
-            Stock stock;
-            try {
-                stock = YahooFinance.get("INTC");
-                BigDecimal price = stock.getQuote(true).getPrice();
-                System.out.println(price);
-                
                 Calendar closeTime = Calendar.getInstance();
-        closeTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-        
-      
-        
-                
+                closeTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+
                 Calendar calNewYork = Calendar.getInstance();
                 calNewYork.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-     
+
                 calNewYork.get(Calendar.HOUR_OF_DAY);
-                closeTime.set(Calendar.HOUR_OF_DAY, 16);
-                
-                if(calNewYork.get(Calendar.HOUR_OF_DAY) == closeTime.get(Calendar.HOUR_OF_DAY)){
-                    return;
+                closeTime.set(Calendar.HOUR_OF_DAY, 9);
+
+                if (calNewYork.get(Calendar.HOUR_OF_DAY) == closeTime.get(Calendar.HOUR_OF_DAY)) {
+                    PriceAndTime i = new PriceAndTime();
+
+                    Thread t1 = new Thread(i);
+                    t1.start();
                 }
-                
-            } catch (IOException ex) {
-                Logger.getLogger(PriceAndTime.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
         }
     }
-    
+
 }
