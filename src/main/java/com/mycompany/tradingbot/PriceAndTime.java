@@ -7,6 +7,7 @@ package com.mycompany.tradingbot;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.logging.Level;
@@ -31,24 +32,36 @@ public class PriceAndTime implements Runnable {
             }
             Stock stock;
             try {
-                stock = YahooFinance.get("INTC");
+                StockTrade s;
+                String stockTicker = "BTC-USD";
+                stock = YahooFinance.get(stockTicker);
                 BigDecimal price = stock.getQuote(true).getPrice();
                 System.out.println(price);
+                
+                s = new StockTrade(stockTicker, price);
+                
+                Model m = new Model();
+                
+                m.addStock(s);
                 
                 Calendar closeTime = Calendar.getInstance();
                 closeTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
         
                 Calendar calNewYork = Calendar.getInstance();
                 calNewYork.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+                
      
                 calNewYork.get(Calendar.HOUR_OF_DAY);
                 closeTime.set(Calendar.HOUR_OF_DAY, 16);
                 
                 if(calNewYork.get(Calendar.HOUR_OF_DAY) >= closeTime.get(Calendar.HOUR_OF_DAY)){
+                    System.out.println("Market Closed");
                     return;
                 }
                 
             } catch (IOException ex) {
+                Logger.getLogger(PriceAndTime.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
                 Logger.getLogger(PriceAndTime.class.getName()).log(Level.SEVERE, null, ex);
             }
 

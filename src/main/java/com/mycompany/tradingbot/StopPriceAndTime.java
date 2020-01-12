@@ -32,11 +32,12 @@ public class StopPriceAndTime implements Runnable {
                 calNewYork.get(Calendar.HOUR_OF_DAY);
                 closeTime.set(Calendar.HOUR_OF_DAY, 9);
 
-                if (calNewYork.get(Calendar.HOUR_OF_DAY) == closeTime.get(Calendar.HOUR_OF_DAY)) {
+                if (calNewYork.get(Calendar.HOUR_OF_DAY) >= closeTime.get(Calendar.HOUR_OF_DAY)) {
                     PriceAndTime i = new PriceAndTime();
 
                     Thread t1 = new Thread(i);
                     t1.start();
+                    return;
                 }
 
         }
