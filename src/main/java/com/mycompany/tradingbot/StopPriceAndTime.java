@@ -23,6 +23,7 @@ public class StopPriceAndTime implements Runnable {
     @Override
     public void run() {
         for (;;) {
+            System.out.println("boi");
                 Calendar closeTime = Calendar.getInstance();
                 closeTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
 
@@ -30,13 +31,14 @@ public class StopPriceAndTime implements Runnable {
                 calNewYork.setTimeZone(TimeZone.getTimeZone("America/New_York"));
 
                 calNewYork.get(Calendar.HOUR_OF_DAY);
-                closeTime.set(Calendar.HOUR_OF_DAY, 9);
+                closeTime.set(Calendar.HOUR_OF_DAY, 7);
 
-                if (calNewYork.get(Calendar.HOUR_OF_DAY) == closeTime.get(Calendar.HOUR_OF_DAY)) {
+                if (calNewYork.get(Calendar.HOUR_OF_DAY) >= closeTime.get(Calendar.HOUR_OF_DAY)) {
                     PriceAndTime i = new PriceAndTime();
 
                     Thread t1 = new Thread(i);
                     t1.start();
+                    return;
                 }
 
         }

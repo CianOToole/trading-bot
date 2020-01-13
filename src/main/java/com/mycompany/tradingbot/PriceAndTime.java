@@ -31,7 +31,7 @@ public class PriceAndTime implements Runnable {
             }
             Stock stock;
             try {
-                stock = YahooFinance.get("INTC");
+                stock = YahooFinance.get("BTC-USD");
                 BigDecimal price = stock.getQuote(true).getPrice();
                 System.out.println(price);
                 
