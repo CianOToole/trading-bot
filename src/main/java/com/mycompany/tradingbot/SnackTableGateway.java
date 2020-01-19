@@ -13,9 +13,9 @@ public class SnackTableGateway {
     private static ArrayList<StockTrade> stock = new ArrayList<>();
     private static final String TABLE_NAME = "stocks";
     private static final String COLUMN_ID = "id";
-    private static final String COLUMN_TICKER=  "ticker";
+    private static final String COLUMN_TICKER = "ticker";
     private static final String COLUMN_PRICE = "price";
-
+    private static final String COLUMN_TIME = "time";
 
     private Connection mConnection;
 
@@ -29,18 +29,20 @@ public class SnackTableGateway {
         PreparedStatement stmt;
         int numRowsAffected;
         int id;
+        java.sql.Timestamp time;
 
         //SQL query that is sent the DB
         query = "INSERT INTO " + TABLE_NAME + " ("
                 + COLUMN_TICKER + ", "
-                + COLUMN_PRICE 
-                + ") VALUES (?, ?)";
+                + COLUMN_PRICE + ", "
+                + COLUMN_TIME
+                + ") VALUES (?, ?, ?)";
 
         //the prepareStatement set the values for the above query
         stmt = mConnection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, s.getTicker());
         stmt.setBigDecimal(2, s.getPrice());
-      
+       stmt.setTimestamp(3, s.getMyDate());
 
         //the query is executed and the executeUpdate give back an int
         numRowsAffected = stmt.executeUpdate();
@@ -55,7 +57,6 @@ public class SnackTableGateway {
 
         }
 
-        
     }
 
     public ArrayList<StockTrade> selectStock() throws SQLException {
@@ -64,12 +65,13 @@ public class SnackTableGateway {
         String query;
         String ticker;
         BigDecimal price;
+        java.sql.Timestamp time;
         int id;
 
         StockTrade s;
         String theID;
         Statement stmt;
-        query = "SELECT * FROM snack";
+        query = "SELECT * FROM stock";
         stmt = mConnection.createStatement();
         ResultSet result = stmt.executeQuery(query);
 
@@ -79,10 +81,10 @@ public class SnackTableGateway {
             id = result.getInt(1);
             ticker = result.getString(2);
             price = result.getBigDecimal(3);
-         
+            time = result.getTimestamp(4);
 
             //New Snack object is made
-            s = new StockTrade(id, ticker, price);
+            s = new StockTrade(id, ticker, price, time);
 
             //adds the new snack object to the Arraylist
             stock.add(s);

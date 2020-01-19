@@ -35,7 +35,7 @@ public class StopPriceAndTime implements Runnable {
 
                 if (calNewYork.get(Calendar.HOUR_OF_DAY) >= closeTime.get(Calendar.HOUR_OF_DAY)) {
                     PriceAndTime i = new PriceAndTime();
-
+                    System.out.println("Started");
                     Thread t1 = new Thread(i);
                     t1.start();
                     return;
