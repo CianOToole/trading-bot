@@ -95,11 +95,12 @@ public class NewMain {
                     action.pause(Duration.ofSeconds(2));
 //                    action.click(element2).perform();
                     action.moveToElement(element2).click(element2).perform();
-                   
+                    action.release(element2);
+                    action.pause(Duration.ofSeconds(2));
                 }
             }
-
-           // driver.switchTo().window(parentWindowHandler); // switch to popup window
+ 
+          driver.switchTo().window(parentWindowHandler); // switch to popup window
 //            // Now you are in the popup window, perform necessary actions here
 //
 //            WebElement element5 = driver.findElement(By.xpath("/html/body/div[1]/div[1]/footer/ul/li[1]/a"));
