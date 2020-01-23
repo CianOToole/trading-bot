@@ -31,7 +31,7 @@ public class StopPriceAndTime implements Runnable {
                 calNewYork.setTimeZone(TimeZone.getTimeZone("America/New_York"));
 
                 calNewYork.get(Calendar.HOUR_OF_DAY);
-                closeTime.set(Calendar.HOUR_OF_DAY, 7);
+                closeTime.set(Calendar.HOUR_OF_DAY, 9);
 
                 if (calNewYork.get(Calendar.HOUR_OF_DAY) >= closeTime.get(Calendar.HOUR_OF_DAY)) {
                     PriceAndTime i = new PriceAndTime();

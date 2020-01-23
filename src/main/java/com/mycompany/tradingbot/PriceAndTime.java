@@ -28,7 +28,7 @@ public class PriceAndTime implements Runnable {
         for (;;) {
 
             try {
-                Thread.sleep(6000);
+                Thread.sleep(60000);
             } catch (InterruptedException e) {
                 return;
             }
@@ -40,7 +40,7 @@ public class PriceAndTime implements Runnable {
                 Timestamp time = new Timestamp(now);
 
                 StockTrade s;
-                String stockTicker = "BTC-USD";
+                String stockTicker = "TSLA";
                 stock = YahooFinance.get(stockTicker);
 
                 BigDecimal price = stock.getQuote(true).getPrice();
