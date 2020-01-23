@@ -34,6 +34,12 @@ public class Model {
     }
     
     public void addStock(StockTrade s) throws SQLException{  
-      this.gateway.insertStock(s);
+        
+        try {
+            this.gateway.insertStock(s);
+        } catch (SQLException e) {
+            e.getSQLState();
+            System.out.println("error did not add Stock");
+        }
     }
 }

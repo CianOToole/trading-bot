@@ -1,1 +1,7 @@
+com\mycompany\tradingbot\StockTrade.class
+com\mycompany\tradingbot\Model.class
+com\mycompany\tradingbot\SnackTableGateway.class
+com\mycompany\tradingbot\PriceAndTime.class
 com\mycompany\tradingbot\NewMain.class
+com\mycompany\tradingbot\StopPriceAndTime.class
+com\mycompany\tradingbot\DBConnection.class
