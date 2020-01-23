@@ -6,7 +6,17 @@
 package com.mycompany.tradingbot;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -17,9 +27,11 @@ public class NewMain {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
+     * @throws java.sql.SQLException
      */
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args) throws IOException, SQLException {
+       
 //        Calendar from = Calendar.getInstance();
 //        Calendar to = Calendar.getInstance();
 //        Stock google = YahooFinance.get("GOOG");
@@ -46,9 +58,49 @@ public class NewMain {
         Thread t1 = new Thread(i);
         t1.start();
 
-       
+    }
 
+    public static void linearRegression(ArrayList<StockTrade> s) throws SQLException {
+        ArrayList<Timestamp> dateAndTime = new ArrayList<>();
+        ArrayList<Long> epoch = new ArrayList<>();
+        for (int i = 0; i < s.size(); i++) {
+            dateAndTime.add(s.get(i).getMyDate());
+        }
+        for (int i = 0; i < s.size(); i++) {
+            epoch.add(dateAndTime.get(i).toInstant().toEpochMilli());
+        }
 
+        long xSum = 0;
+        long ySum = 0;
+
+        for (int i = 0; i < s.size(); i++) {
+            xSum += epoch.get(i);
+            ySum += s.get(i).getPrice().longValue();
+        }
+
+        long xMean = xSum / s.size();
+        long yMean = ySum / s.size();
+
+        long num = 0;
+        long den = 0;
+        for (int i = 0; i < s.size(); i++) {
+            long x = epoch.get(i);
+            long y = s.get(i).getPrice().longValue();
+            num += (x - xMean) * (y - yMean);
+            den += (x - xMean) * (x - xMean);
+        }
+
+        int m = (int) (num / den);
+        long b = yMean - m * xMean;
+        long x = 1579750808;
+        long y = m * x + b;
+        System.out.println("this is y" + y);
+        System.out.println("slope" + m);
+        System.out.println("y -in" + b);
+        System.out.println("mean X" + xMean);
+        System.out.println("mean X" + yMean);
+        System.out.println("num" + num);
+        System.out.println("den" + den);
     }
 
 }

@@ -42,4 +42,16 @@ public class Model {
             System.out.println("error did not add Stock");
         }
     }
+    
+    
+     public ArrayList<StockTrade> getAllStock() throws SQLException{  
+        ArrayList<StockTrade> stock = new ArrayList<>();
+        try {
+       stock = this.gateway.selectStock();
+        } catch (SQLException e) {
+            e.getSQLState();
+            System.out.println("didn't get stock");
+        }
+       return stock;
+    }
 }

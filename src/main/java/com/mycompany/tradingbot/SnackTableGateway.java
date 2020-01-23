@@ -69,9 +69,8 @@ public class SnackTableGateway {
         int id;
 
         StockTrade s;
-        String theID;
         Statement stmt;
-        query = "SELECT * FROM stock";
+        query = "SELECT * FROM stocks";
         stmt = mConnection.createStatement();
         ResultSet result = stmt.executeQuery(query);
 

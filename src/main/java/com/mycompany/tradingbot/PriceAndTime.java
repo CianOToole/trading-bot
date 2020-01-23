@@ -5,6 +5,7 @@
  */
 package com.mycompany.tradingbot;
 
+import static com.mycompany.tradingbot.NewMain.linearRegression;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -50,7 +51,9 @@ public class PriceAndTime implements Runnable {
 
                 Model m = new Model();
 
-                m.addStock(s);
+
+               
+                
 
                 Calendar closeTime = Calendar.getInstance();
                 closeTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
@@ -65,6 +68,8 @@ public class PriceAndTime implements Runnable {
                     System.out.println("Market Closed");
                     return;
                 }
+                m.addStock(s);
+                linearRegression(m.getAllStock());
 
             } catch (IOException ex) {
                 Logger.getLogger(PriceAndTime.class.getName()).log(Level.SEVERE, null, ex);
