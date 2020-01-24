@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.Clock;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.logging.Level;
@@ -35,6 +37,8 @@ public class PriceAndTime implements Runnable {
             }
             Stock stock;
             try {
+
+
 
                 long now = Instant.now().toEpochMilli();
 

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -31,7 +32,7 @@ public class NewMain {
      * @throws java.sql.SQLException
      */
     public static void main(String[] args) throws IOException, SQLException {
-       
+
 //        Calendar from = Calendar.getInstance();
 //        Calendar to = Calendar.getInstance();
 //        Stock google = YahooFinance.get("GOOG");
@@ -70,37 +71,32 @@ public class NewMain {
             epoch.add(dateAndTime.get(i).toInstant().toEpochMilli());
         }
 
-        long xSum = 0;
-        long ySum = 0;
+        double xSum = 0;
+        double ySum = 0;
 
         for (int i = 0; i < s.size(); i++) {
-            xSum += epoch.get(i);
-            ySum += s.get(i).getPrice().longValue();
+            xSum += epoch.get(i).doubleValue();
+            ySum += s.get(i).getPrice().doubleValue();
         }
 
-        long xMean = xSum / s.size();
-        long yMean = ySum / s.size();
+        double xMean = xSum / s.size();
+        double yMean = ySum / s.size();
 
-        long num = 0;
-        long den = 0;
+        double num = 0;
+        double den = 0;
         for (int i = 0; i < s.size(); i++) {
-            long x = epoch.get(i);
-            long y = s.get(i).getPrice().longValue();
+            double x = epoch.get(i).doubleValue();
+            double y = s.get(i).getPrice().doubleValue();
             num += (x - xMean) * (y - yMean);
             den += (x - xMean) * (x - xMean);
         }
 
-        int m = (int) (num / den);
-        long b = yMean - m * xMean;
-        long x = 1579750808;
-        long y = m * x + b;
-        System.out.println("this is y" + y);
-        System.out.println("slope" + m);
-        System.out.println("y -in" + b);
-        System.out.println("mean X" + xMean);
-        System.out.println("mean X" + yMean);
-        System.out.println("num" + num);
-        System.out.println("den" + den);
+        double m = num / den;
+        double b = yMean - m * xMean;
+        double x = Instant.now().toEpochMilli();
+        double y = m * x + b;
+        System.out.println("this is y" + " " + y + " " + x + " " + m );
+
     }
 
 }

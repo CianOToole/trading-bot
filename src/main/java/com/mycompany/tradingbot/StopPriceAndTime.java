@@ -23,7 +23,7 @@ public class StopPriceAndTime implements Runnable {
     @Override
     public void run() {
         for (;;) {
-            System.out.println("boi");
+
                 Calendar closeTime = Calendar.getInstance();
                 closeTime.setTimeZone(TimeZone.getTimeZone("America/New_York"));
 
