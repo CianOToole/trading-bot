@@ -43,6 +43,8 @@ public class PriceAndTime implements Runnable {
                 long now = Instant.now().toEpochMilli();
 
                 Timestamp time = new Timestamp(now);
+                
+             
 
                 StockTrade s;
                 String stockTicker = "TSLA";

@@ -40,12 +40,11 @@ public class NewMain {
 //        System.out.println(googleHistQuotes);
         StopPriceAndTime i = new StopPriceAndTime();
 
+        Model m = new Model();
+        linearRegression(m.getAllStock());
+
         Calendar calNewYork = Calendar.getInstance();
         calNewYork.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-        System.out.println();
-        System.out.println("Time in New York: " + calNewYork.get(Calendar.HOUR_OF_DAY) + ":"
-                + calNewYork.get(Calendar.MINUTE) + ":" + calNewYork.get(Calendar.SECOND));
-        System.out.println(calNewYork.getTime());
 
         Calendar openTime = Calendar.getInstance();
         Calendar closeTime = Calendar.getInstance();
@@ -55,10 +54,8 @@ public class NewMain {
         closeTime.set(Calendar.HOUR_OF_DAY, 16);
         closeTime.get(Calendar.HOUR_OF_DAY);
 
-        System.out.println(closeTime);
-        Thread t1 = new Thread(i);
-        t1.start();
-
+//        Thread t1 = new Thread(i);
+//        t1.start();
     }
 
     public static void linearRegression(ArrayList<StockTrade> s) throws SQLException {
@@ -84,19 +81,36 @@ public class NewMain {
 
         double num = 0;
         double den = 0;
+
+        double gM = 0;
+        double gB = 0;
+        double learning_rate = 0.0000000000000000000000001;
+        double totalError = 0;
+
         for (int i = 0; i < s.size(); i++) {
             double x = epoch.get(i).doubleValue();
             double y = s.get(i).getPrice().doubleValue();
+
+            double guess = gM * x + gB;
+            double error = y - guess;
+            totalError += (guess - y) * (guess - y);
+
+            gM = gM + error * x * learning_rate;
+            gB = gB + error * learning_rate;
+
+            //not Gradient Descent
             num += (x - xMean) * (y - yMean);
             den += (x - xMean) * (x - xMean);
         }
-
+                                                                                                                        
         double m = num / den;
         double b = yMean - m * xMean;
         double x = Instant.now().toEpochMilli();
         double y = m * x + b;
-        System.out.println("this is y" + " " + y + " " + x + " " + m );
-
+        double yGradientDescent = gM * x + gB;
+        System.out.println("this is y" + " " + y + " " + b + " " + m);
+        System.out.println(totalError);
+        System.out.println("this is yGradientDescent " + " " + yGradientDescent + " " + gM);
     }
 
 }
