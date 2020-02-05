@@ -40,8 +40,7 @@ public class NewMain {
 //        System.out.println(googleHistQuotes);
         StopPriceAndTime i = new StopPriceAndTime();
 
-        Model m = new Model();
-        linearRegression(m.getAllStock());
+      
 
         Calendar calNewYork = Calendar.getInstance();
         calNewYork.setTimeZone(TimeZone.getTimeZone("America/New_York"));
@@ -54,8 +53,8 @@ public class NewMain {
         closeTime.set(Calendar.HOUR_OF_DAY, 16);
         closeTime.get(Calendar.HOUR_OF_DAY);
 
-//        Thread t1 = new Thread(i);
-//        t1.start();
+        Thread t1 = new Thread(i);
+        t1.start();
     }
 
     public static void linearRegression(ArrayList<StockTrade> s) throws SQLException {
