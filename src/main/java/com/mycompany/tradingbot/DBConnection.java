@@ -9,16 +9,17 @@ public class DBConnection {
     private static Connection sConnection;
     //this method gives the Connection with the database
     public static Connection getInstance() throws ClassNotFoundException, SQLException {
-        String host, db, user, password;
+        String host, db, user, password, serverTimezone;
         
        
-        host = "localhost";
-        db = "trading_bot";
-        user = "root";
-        password = "";
+        host = "127.0.0.1:33060";
+        db = "cassandra";
+        user = "homestead";
+        serverTimezone = "?useTimezone=true&serverTimezone=GMT";
+        password = "secret";
         
         if (sConnection == null || sConnection.isClosed()) {
-            String url = "jdbc:mysql://" + host + "/" + db;
+            String url = "jdbc:mysql://" + host + "/" + db + serverTimezone;
             Class.forName("com.mysql.cj.jdbc.Driver");
             sConnection = DriverManager.getConnection(url, user, password);
         }
