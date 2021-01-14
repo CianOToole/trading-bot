@@ -46,17 +46,35 @@ public class NewMain {
 			res.type("application/json");
 			Calendar from = Calendar.getInstance();
 			Calendar to = Calendar.getInstance();
-			from.add(Calendar.YEAR, -5); // from 5 years ago
+			from.add(Calendar.YEAR, -1); // from 5 years ago
 
-			Stock google = YahooFinance.get("GOOG", from, to, Interval.WEEKLY);
+			Stock google = YahooFinance.get("GOOG", from, to, Interval.DAILY);
 
 //			BigDecimal price = google.getQuote().getPrice();
 			return new Gson().toJson(google);
 		});
 
 		get("/getTicker", "application/json", (request, response) -> {
-			String id = request.queryParams("collId");
-			return "HI " + id;
+			//http://localhost:4567/getTicker?ticker=CSIQ
+			String ticker = request.queryParams("ticker");
+			response.type("application/json");
+			Stock stock = YahooFinance.get(ticker);
+			BigDecimal price = stock.getQuote().getPrice();
+			return new Gson().toJson(price);
+		});
+		
+		get("/getTickerHis", "application/json", (request, response) -> {
+			//http://localhost:4567/getTickerHis?ticker=CSIQ
+			String ticker = request.queryParams("ticker");
+			response.type("application/json");
+			Calendar from = Calendar.getInstance();
+			Calendar to = Calendar.getInstance();
+			from.add(Calendar.YEAR, -1); // from 5 years ago
+
+			Stock google = YahooFinance.get(ticker, from, to, Interval.DAILY);
+
+//			BigDecimal price = google.getQuote().getPrice();
+			return new Gson().toJson(google);
 		});
 
 		Calendar from = Calendar.getInstance();
